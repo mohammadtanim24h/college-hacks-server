@@ -48,6 +48,13 @@ const run = async () => {
             res.send(result);
         })
 
+        app.get("/get-blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const blog = await blogsCollection.findOne(query);
+            res.send(blog);
+        })
+
         app.delete("/blog/:id", async (req, res) => {
             const id = req.params.id;
 
