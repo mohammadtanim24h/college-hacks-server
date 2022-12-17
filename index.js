@@ -36,6 +36,18 @@ const run = async () => {
             res.send(result);
         });
 
+        app.put("/update-blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const blog = req.body;
+            const filter = {_id: ObjectId(id)};
+            const options = { upsert: true };
+            const updatedBlog = {
+                $set: blog,
+            };
+            const result = await blogsCollection.updateOne(filter, updatedBlog, options);
+            res.send(result);
+        })
+
         app.delete("/blog/:id", async (req, res) => {
             const id = req.params.id;
 
